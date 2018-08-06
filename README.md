@@ -10,8 +10,9 @@ will not comment if you include any block explorer link along with
 your address or block hash. It is also open source.
 
 #### Installing and Running
-1. Install python3 and [praw](https://praw.readthedocs.io/en/latest/getting_started/installation.html)
-2. Install the package `moreutils` for your distro
+1. Install python3 and [praw](https://praw.readthedocs.io/en/latest/getting_started/installation.html).
+2. Install the package `moreutils` for your distro.
 3. Create a [praw.ini](https://praw.readthedocs.io/en/latest/getting_started/configuration/prawini.html#defining-additional-sites) file, with the botname `nanodelinkbot`.
-4. Excecute script `runs.sh` to monitor submissions or `runc.sh` for comments.
+4. Create a file called `replied_posts.txt`.
+5. Excecute script `runs.sh` to monitor submissions or `runc.sh` for comments.
 
