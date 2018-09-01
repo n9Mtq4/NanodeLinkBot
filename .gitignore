@@ -2,3 +2,5 @@ praw.ini
 replied_posts.txt
 *.log
 
+.idea
+*.iml
