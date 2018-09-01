@@ -14,5 +14,6 @@ your address or block hash. It is also open source.
 2. Install the package `moreutils` for your distro.
 3. Create a [praw.ini](https://praw.readthedocs.io/en/latest/getting_started/configuration/prawini.html#defining-additional-sites) file, with the botname `nanodelinkbot`.
 4. Create a file called `replied_posts.txt`.
-5. Excecute script `runs.sh` to monitor submissions or `runc.sh` for comments.
+5. Change `ALLOW_POSTS` in `nanodelinkbot.py:20` to `True` to allow actually posting to reddit.
+6. Excecute script `runs.sh` to monitor submissions or `runc.sh` for comments.
 

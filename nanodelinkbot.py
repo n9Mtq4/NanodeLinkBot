@@ -15,6 +15,8 @@ MY_BOT_USERNAME = "NanodeLinkBot"
 MY_BOT_CONFIG_NAME = "nanodelinkbot"  # the bot name in praw.ini
 SUBREDDITS = "nanocurrency+nanotrade+NanodeLinkBot"
 # SUBREDDITS = "NanodeLinkBot"  # test only subreddit
+
+# CHANGE THIS TO TRUE TO ALLOW ACTUALLY POSTING
 ALLOW_POSTS = False
 
 GITHUB_URL = "https://github.com/n9Mtq4/NanodeLinkBot"
