@@ -17,6 +17,7 @@ SUBREDDITS = "nanocurrency+nanotrade+NanodeLinkBot"
 # SUBREDDITS = "NanodeLinkBot"  # test only subreddit
 ALLOW_POSTS = False
 
+GITHUB_URL = "https://github.com/n9Mtq4/NanodeLinkBot"
 CONTACT_ME_URL = "https://np.reddit.com/message/compose/?to=n9Mtq4&subject=NanodeLinkBot"
 
 # Regex
@@ -141,6 +142,7 @@ def generate_reply_text(addresses, blocks):
             text += create_body_entry("block", block).strip() + "\n\n"
     text += "---------\n"
     text += "I am a bot | Made by n9Mtq4 | "
+    text += "[Github](%s) | " % GITHUB_URL
     text += "[Send my human a message.](%s)" % CONTACT_ME_URL
     return text
 
