@@ -21,9 +21,10 @@ CONTACT_ME_URL = "https://np.reddit.com/message/compose/?to=n9Mtq4&subject=Nanod
 
 # Regex
 # url regex is for checking if in url, so normal can have ^ and $ if needed
-NANO_ADDRESS_REGEX = r"(?:xrb|nano)_[13456789abcdefghijkmnopqrstuwxyz]{60}"
+# the url regexes might need \b too?
+NANO_ADDRESS_REGEX = r"\b(?:xrb|nano)_[13456789abcdefghijkmnopqrstuwxyz]{60}\b"
 NANO_ADDRESS_URL_REGEX = r"(?:xrb|nano)_[13456789abcdefghijkmnopqrstuwxyz]{60}"
-NANO_BLOCK_REGEX = r"[\dABCDEF]{64}"
+NANO_BLOCK_REGEX = r"\b[\dABCDEF]{64}\b"
 NANO_BLOCK_URL_REGEX = r"[\dABCDEF]{64}"
 
 # Explorer information
