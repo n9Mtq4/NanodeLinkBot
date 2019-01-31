@@ -2,6 +2,7 @@ import praw
 import re
 import itertools
 import sys
+import os
 
 # READ THIS TO RUN
 # This was written with python3
@@ -9,15 +10,14 @@ import sys
 # args must either comments or submissions
 # the arg will be what it monitors for
 # can also use printcomments to print out the comments
+# to allow posting, you must run with the environment
+# variable ALLOW_POSTS=True
 
 # General Bot information and rules
 MY_BOT_USERNAME = "NanodeLinkBot"
 MY_BOT_CONFIG_NAME = "nanodelinkbot"  # the bot name in praw.ini
 SUBREDDITS = "nanocurrency+nanotrade+NanodeLinkBot"
 # SUBREDDITS = "NanodeLinkBot"  # test only subreddit
-
-# CHANGE THIS TO TRUE TO ALLOW ACTUALLY POSTING
-ALLOW_POSTS = False
 
 GITHUB_URL = "https://github.com/n9Mtq4/NanodeLinkBot"
 CONTACT_ME_URL = "https://np.reddit.com/message/compose/?to=n9Mtq4&subject=NanodeLinkBot"
@@ -190,11 +190,24 @@ def post_reply(post, post_text):
         print("Shouldn't happen. Check before calling this function")
         return
     print("Posting to: " + pid)
-    if ALLOW_POSTS:
+    if allowed_to_post():
         replied_to(post.id)
         post.reply(post_text)
     else:
         print("Posting disallowed. Not posting")
+
+
+def allowed_to_post():
+    """
+    Checks to see if the environment variable
+    ALLOW_POSTS=True. If it is not set or set
+    to some other value, this will not actually
+    post to reddit
+    :return: True if this bot is allowed to post
+    """
+    if "ALLOW_POSTS" in os.environ:
+        return os.environ["ALLOW_POSTS"] == "True"
+    return False
 
 
 def should_reply(post):
