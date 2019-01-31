@@ -30,6 +30,12 @@ NANO_ADDRESS_URL_REGEX = r"(?:xrb|nano)_[13456789abcdefghijkmnopqrstuwxyz]{60}"
 NANO_BLOCK_REGEX = r"\b[\dABCDEF]{64}\b"
 NANO_BLOCK_URL_REGEX = r"[\dABCDEF]{64}"
 
+# don't reply to specific users or specific comments if they match a specific regex
+BLACKLIST_USERNAME = [f"^{MY_BOT_USERNAME}$", "^nano_tipper_z$"]
+BLACKLIST_TITLE = []
+BLACKLIST_BODY = [r"^!nano_tip\b"]
+BLACKLIST_SELFTEXT = []
+
 # Explorer information
 DEFAULT_EXPLORER = "nanode"
 ALL_EXPLORERS = False  # if true will add all other explorers to the reply
@@ -195,12 +201,25 @@ def should_reply(post):
     """
     Checks if this bot should reply to the given
     post. Doesn't reply if it already has, or if
-    the post is itself.
+    the post is itself, or anything matches one of
+    the blacklist regexes.
     :param post: the comment or submission
     :return: if the bot should reply to the post
     """
-    my_own = post.author.name == MY_BOT_USERNAME
-    return (not has_replied(post.id)) and (not my_own)
+    
+    # search the blacklist
+    username_blacklist = matches_blacklist(post.author.name, BLACKLIST_USERNAME)
+    title_blacklist = matches_blacklist(post.title, BLACKLIST_TITLE)
+    body_blacklist = matches_blacklist(post.body, BLACKLIST_BODY)
+    selftext_blacklist = matches_blacklist(post.selftext, BLACKLIST_SELFTEXT)
+    blacklist_match = \
+        username_blacklist or \
+        title_blacklist or \
+        body_blacklist or \
+        selftext_blacklist
+    
+    # return if we haven't already replied and nothing in the blacklist filter
+    return (not has_replied(post.id)) and (not blacklist_match)
 
 
 def has_replied(post_id):
@@ -235,6 +254,24 @@ def load_replied_list():
     with open(REPLIED_POSTS_FILE_NAME, "r") as f:
         lines = f.readlines()
         return list(map(lambda it: it.strip(), lines))
+
+
+def matches_blacklist(text, blacklist):
+    """
+    Searches the text for a blacklist match.
+    :param text: the text to search
+    :param blacklist: a list of blacklist regexs
+    :return: True if it found a blacklist match in the text
+    """
+    # Guard against possible undefined titles, bodies, or selftexts
+    if not text:
+        return False
+    # search text for any matching blacklist
+    for blacklist_entry in blacklist:
+        if re.search(blacklist_entry, text):
+            # we found a blacklist match
+            return True
+    return False
 
 
 def find_addresses_in_text(text):
