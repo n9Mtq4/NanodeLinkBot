@@ -253,6 +253,7 @@ def replied_to(post_id):
     :param post_id: the post id
     :return: None
     """
+    # TODO: change this to keep the file open all the time
     with open(REPLIED_POSTS_FILE_NAME, "a") as f:
         f.write(post_id + "\n")
     replied_list.append(post_id.strip())
@@ -331,6 +332,7 @@ def find_regex_in_text(regex, url_find_regex, text):
 
 if __name__ == "__main__":
     print("Running NanodeLinkBot...")
+    print(f"ALLOW_POSTS={allowed_to_post()}")
     replied_list.extend(load_replied_list())
     reddit = praw.Reddit(MY_BOT_CONFIG_NAME)
     process_reddit(reddit)
