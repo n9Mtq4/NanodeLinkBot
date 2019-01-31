@@ -31,7 +31,7 @@ NANO_BLOCK_REGEX = r"\b[\dABCDEF]{64}\b"
 NANO_BLOCK_URL_REGEX = r"[\dABCDEF]{64}"
 
 # don't reply to specific users or specific comments if they match a specific regex
-BLACKLIST_USERNAME = [f"^{MY_BOT_USERNAME}$", "^nano_tipper_z$"]
+BLACKLIST_USERNAME = ["^%s$" % MY_BOT_USERNAME, "^nano_tipper_z$"]
 BLACKLIST_TITLE = []
 BLACKLIST_BODY = [r"^!nano_tip\b"]
 BLACKLIST_SELFTEXT = []
@@ -332,7 +332,7 @@ def find_regex_in_text(regex, url_find_regex, text):
 
 if __name__ == "__main__":
     print("Running NanodeLinkBot...")
-    print(f"ALLOW_POSTS={allowed_to_post()}")
+    print("ALLOW_POSTS=%s" % allowed_to_post())
     replied_list.extend(load_replied_list())
     reddit = praw.Reddit(MY_BOT_CONFIG_NAME)
     process_reddit(reddit)
