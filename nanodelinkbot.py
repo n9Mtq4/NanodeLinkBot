@@ -38,9 +38,13 @@ EXPLORER_URLS = {
         "address": "https://nanode.co/account/%s",
         "block": "https://www.nanode.co/block/%s"
     },
-    "meltingice": {
-        "address": "https://nano.meltingice.net/explorer/account/%s",
-        "block": "https://nano.meltingice.net/explorer/block/%s"
+    "nanocrawler": {
+        "address": "https://nanocrawler.cc/explorer/account/%s",
+        "block": "https://nanocrawler.cc/explorer/block/%s"
+    },
+    "nanoninja": {
+        "address": "https://mynano.ninja/account/%s",
+        "block": "https://mynano.ninja/block/%s"
     },
     "nanowatch": {
         "address": "https://nanowat.ch/account/%s",
