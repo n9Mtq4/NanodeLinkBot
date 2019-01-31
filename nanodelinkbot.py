@@ -222,9 +222,14 @@ def should_reply(post):
     
     # search the blacklist
     username_blacklist = matches_blacklist(post.author.name, BLACKLIST_USERNAME)
-    title_blacklist = matches_blacklist(post.title, BLACKLIST_TITLE)
-    body_blacklist = matches_blacklist(post.body, BLACKLIST_BODY)
-    selftext_blacklist = matches_blacklist(post.selftext, BLACKLIST_SELFTEXT)
+    # TODO: i hate this code, a loop of some sort would be nice
+    (title_blacklist, body_blacklist, selftext_blacklist) = (False, False, False)
+    if hasattr(post, "title"):
+        title_blacklist = matches_blacklist(post.title, BLACKLIST_TITLE)
+    if hasattr(post, "body"):
+        body_blacklist = matches_blacklist(post.body, BLACKLIST_BODY)
+    if hasattr(post, "selftext"):
+        selftext_blacklist = matches_blacklist(post.selftext, BLACKLIST_SELFTEXT)
     blacklist_match = \
         username_blacklist or \
         title_blacklist or \
@@ -277,9 +282,6 @@ def matches_blacklist(text, blacklist):
     :param blacklist: a list of blacklist regexs
     :return: True if it found a blacklist match in the text
     """
-    # Guard against possible undefined titles, bodies, or selftexts
-    if not text:
-        return False
     # search text for any matching blacklist
     for blacklist_entry in blacklist:
         if re.search(blacklist_entry, text):
