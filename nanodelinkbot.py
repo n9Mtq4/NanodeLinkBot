@@ -31,7 +31,7 @@ NANO_BLOCK_REGEX = r"\b[\dABCDEF]{64}\b"
 NANO_BLOCK_URL_REGEX = r"[\dABCDEF]{64}"
 
 # don't reply to specific users or specific comments if they match a specific regex
-BLACKLIST_USERNAME = ["^%s$" % MY_BOT_USERNAME, "^nano_tipper_z$"]
+BLACKLIST_USERNAME = ["^%s$" % MY_BOT_USERNAME, "^nano_tipper_z$", "^nano_tipper$"]
 BLACKLIST_TITLE = []
 BLACKLIST_BODY = [r"^!nano_tip\b"]
 BLACKLIST_SELFTEXT = []
