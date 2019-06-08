@@ -37,24 +37,23 @@ BLACKLIST_BODY = [r"^!nano_tip\b"]
 BLACKLIST_SELFTEXT = []
 
 # Explorer information
-DEFAULT_EXPLORER = "nanode"
-ALL_EXPLORERS = False  # if true will add all other explorers to the reply
+DEFAULT_EXPLORER = "nanocrawler"
+ALL_EXPLORERS = True  # if true will add all other explorers to the reply
 EXPLORER_URLS = {
     "nanode": {
+        "name": "Nanode.co",
         "address": "https://nanode.co/account/%s",
         "block": "https://www.nanode.co/block/%s"
     },
     "nanocrawler": {
+        "name": "NanoCrawler.cc",
         "address": "https://nanocrawler.cc/explorer/account/%s",
         "block": "https://nanocrawler.cc/explorer/block/%s"
     },
     "nanoninja": {
+        "name": "My Nano Ninja",
         "address": "https://mynano.ninja/account/%s",
         "block": "https://mynano.ninja/block/%s"
-    },
-    "nanowatch": {
-        "address": "https://nanowat.ch/account/%s",
-        "block": "https://nanowat.ch/block/%s"
     }
 }
 
@@ -166,13 +165,13 @@ def create_body_entry(etype, value):
     :param value: The address or block
     :return: A string with the markdown url corresponding to the value
     """
-    main_url = "[%s](%s)" % (value, (EXPLORER_URLS[DEFAULT_EXPLORER][etype] % value))
+    main_url = "%s\n\n[%s](%s)" % (value, EXPLORER_URLS[DEFAULT_EXPLORER]["name"], (EXPLORER_URLS[DEFAULT_EXPLORER][etype] % value))
     second_urls = ""
     if ALL_EXPLORERS:
         for key, explorer in EXPLORER_URLS.items():
             if key == DEFAULT_EXPLORER:
                 continue
-            second_urls += "[(%s)](%s) " % (key, (explorer[etype] % value))
+            second_urls += "| [%s](%s) " % (explorer["name"], (explorer[etype] % value))
     return main_url + " " + second_urls
 
 
