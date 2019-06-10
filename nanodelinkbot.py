@@ -1,4 +1,5 @@
 import praw
+import praw.exceptions
 import re
 import itertools
 import sys
@@ -190,8 +191,12 @@ def post_reply(post, post_text):
         return
     print("Posting to: " + pid)
     if allowed_to_post():
-        replied_to(post.id)
-        post.reply(post_text)
+        try:
+            replied_to(post.id)
+            post.reply(post_text)
+        except praw.exceptions.APIException as e:  # comes up in testing with archived posts
+            print(e)
+            pass
     else:
         print("Posting disallowed. Not posting")
 
