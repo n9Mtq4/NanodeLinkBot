@@ -41,15 +41,15 @@ BLACKLIST_SELFTEXT = []
 DEFAULT_EXPLORER = "nanocrawler"
 ALL_EXPLORERS = True  # if true will add all other explorers to the reply
 EXPLORER_URLS = {
-    "nanode": {
-        "name": "Nanode",
-        "address": "https://nanode.co/account/%s",
-        "block": "https://www.nanode.co/block/%s"
-    },
     "nanocrawler": {
         "name": "NanoCrawler",
         "address": "https://nanocrawler.cc/explorer/account/%s",
         "block": "https://nanocrawler.cc/explorer/block/%s"
+    },
+    "nanode": {
+        "name": "Nanode",
+        "address": "https://nanode.co/account/%s",
+        "block": "https://www.nanode.co/block/%s"
     },
     "nanoninja": {
         "name": "My Nano Ninja",
@@ -166,14 +166,11 @@ def create_body_entry(etype, value):
     :param value: The address or block
     :return: A string with the markdown url corresponding to the value
     """
-    main_url = "%s\n\n[%s](%s)" % (value, EXPLORER_URLS[DEFAULT_EXPLORER]["name"], (EXPLORER_URLS[DEFAULT_EXPLORER][etype] % value))
-    second_urls = ""
-    if ALL_EXPLORERS:
-        for key, explorer in EXPLORER_URLS.items():
-            if key == DEFAULT_EXPLORER:
-                continue
-            second_urls += "| [%s](%s) " % (explorer["name"], (explorer[etype] % value))
-    return main_url + " " + second_urls
+    # main_text = "[%s](%s)\n\n" % (value, (EXPLORER_URLS[DEFAULT_EXPLORER][etype] % value))  # address with link
+    main_text = "%s\n\n" % value  # just address
+    explorers = map(lambda item: "[%s](%s)" % (item["name"], (item[etype] % value)), EXPLORER_URLS.values())
+    urls = " | ".join(explorers)
+    return main_text + " " + urls
 
 
 def post_reply(post, post_text):
