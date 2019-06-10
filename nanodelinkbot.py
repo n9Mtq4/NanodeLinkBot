@@ -41,12 +41,12 @@ DEFAULT_EXPLORER = "nanocrawler"
 ALL_EXPLORERS = True  # if true will add all other explorers to the reply
 EXPLORER_URLS = {
     "nanode": {
-        "name": "Nanode.co",
+        "name": "Nanode",
         "address": "https://nanode.co/account/%s",
         "block": "https://www.nanode.co/block/%s"
     },
     "nanocrawler": {
-        "name": "NanoCrawler.cc",
+        "name": "NanoCrawler",
         "address": "https://nanocrawler.cc/explorer/account/%s",
         "block": "https://nanocrawler.cc/explorer/block/%s"
     },
