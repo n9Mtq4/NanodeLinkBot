@@ -46,11 +46,6 @@ EXPLORER_URLS = {
         "address": "https://nanocrawler.cc/explorer/account/%s",
         "block": "https://nanocrawler.cc/explorer/block/%s"
     },
-    "nanode": {
-        "name": "Nanode",
-        "address": "https://nanode.co/account/%s",
-        "block": "https://www.nanode.co/block/%s"
-    },
     "nanoninja": {
         "name": "My Nano Ninja",
         "address": "https://mynano.ninja/account/%s",
